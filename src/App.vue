@@ -1,31 +1,65 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <app-menu :is-drawer="drawer"></app-menu>
+    <!-- <v-toolbar
+      app
+      clipped-left
+      color="cyan lighten-1"
+    >
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>Shop Dee</v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <v-menu bottom left offset-y>
+          <v-btn icon slot="activator">
+            <v-badge overlap small color="red">
+              <span slot="badge" small>3</span>
+                <v-icon dark>shopping_cart</v-icon>
+            </v-badge>
+          </v-btn>
+          <cart></cart>
+        </v-menu>
+      
+    </v-toolbar> -->
+    <top-bar v-on:onToggle="toggleBar" :is-drawer="drawer"></top-bar>
+    <v-content>
+      <router-view/>
+    </v-content>
+    <v-footer :fixed="fixed" app>
+      <span>&copy; Shop Dee</span>
+    </v-footer>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+<script>
+import Menu from '@/components/Menu'
+import Cart from '@/components/Cart'
+import ToptBar from '@/components/TopBar'
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+export default {
+  name: 'App',
+  components: {'app-menu' : Menu, 'cart': Cart, 'top-bar' : ToptBar},
+  data () {
+    return {
+      clipped: false,
+      drawer: true,
+      fixed: false,
+      items: [{
+        icon: 'bubble_chart',
+        title: 'Inspire'
+      }],
+      miniVariant: false,
+      right: true,
+      rightDrawer: false,
+      title: 'Vuetify.js'
+    }
+  },
+  methods: {
+    toggleBar() {
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+      this.drawer = !this.drawer
+      console.log(this.drawer)
+    }
+  }
 }
-</style>
+</script>
