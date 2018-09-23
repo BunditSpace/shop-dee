@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <app-menu :is-drawer="drawer"></app-menu>
-    <top-bar v-on:onToggle="toggleBar" :is-drawer="drawer" :cart-items="cartItems"></top-bar>
+    <top-bar v-on:onToggle="toggleBar" :is-drawer="drawer" :cart-items="cartItems" :remove-cart-item="removeCartItem"></top-bar>
     <v-content>
       <router-view/>
     </v-content>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {mapState, mapGetters} from 'vuex'
+import {mapState, mapGetters, mapActions} from 'vuex'
 
 import Menu from '@/components/Menu'
 import ToptBar from '@/components/TopBar'
@@ -46,7 +46,12 @@ export default {
 
       this.drawer = !this.drawer
       console.log(this.drawer)
-    }
+    },
+
+    ...mapActions('cartStore',{
+      removeCartItem :'requestRemoveItem'
+    })
+  
   },
   created() {
     this.$store.dispatch('cartStore/requestCartItems')

@@ -21,7 +21,7 @@
        <v-layout row mt-2> 
         <v-flex xs12 text-xs-center>
           <v-card tile pa-2 v-for="(item, key) in products" :key="key"> 
-            <product-item :product="item"></product-item>
+            <product-item :product="item" :update-product-amount="updateProductAmount"></product-item>
           </v-card>
           
 
@@ -68,6 +68,12 @@ export default {
     })
   },
   computed: {
+  },
+  methods: {
+    async updateProductAmount(name, amount, type) {
+      
+      await productService.updateProductAmount(name, amount, type)
+    }
   }
 }
 </script>

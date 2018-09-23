@@ -23,7 +23,7 @@
               </v-list-tile-content>
               <v-list-tile-action>
                 <v-list-tile-action-text>action</v-list-tile-action-text>
-                <v-icon color="grey lighten-1" @click="">cancel</v-icon>
+                <v-icon color="grey lighten-1" @click="removeCartItem(product)">cancel</v-icon>
               </v-list-tile-action>
             </v-list-tile>
             <v-divider v-if="index + 1 < cartItems.length" :key="`divider-${index}`"></v-divider>
@@ -44,7 +44,7 @@ export default {
     checkoutCart:{
       type: Function
     },
-    removeItem: {
+    removeCartItem: {
       type:Function
     }
   },

@@ -15,7 +15,7 @@
                 <v-icon dark>shopping_cart</v-icon>
             </v-badge>
           </v-btn>
-          <cart :cart-items="cartItems"></cart>
+          <cart :cart-items="cartItems" :remove-cart-item="removeCartItem"></cart>
         </v-menu>
       
     </v-toolbar>
@@ -35,6 +35,9 @@ export default {
       },
       cartItems: {
         type: Array
+      },
+      removeCartItem: {
+        type: Function
       }
     },
     data: () => ({

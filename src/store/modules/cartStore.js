@@ -3,7 +3,8 @@
 import cartService from '@/api/cartService'
 
 const type = {
-    requestCartItems: 'CART_REQUEST_CARTITEMS'
+    requestCartItems: 'CART_REQUEST_CARTITEMS',
+    requestRemoveItem: 'CART_REQUEST_REMOVE_ITEM'
 }
 
 const state = {
@@ -24,6 +25,12 @@ const actions = {
         let items = await cartService.getAll()
         console.log(items)
         commit(type.requestCartItems, items)
+    },
+
+    async requestRemoveItem({state, commit, dispatch}, item) {
+        
+        await cartService.removeItemCart(item)
+        //dispatch(type.requestCartItems)
     }
 }
 

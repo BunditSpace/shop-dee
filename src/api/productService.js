@@ -47,5 +47,23 @@ export default {
                 }
             }, 1000);
         }) 
+    },
+
+    updateProductAmount(name, amount, type) {
+        return new Promise(function(resolve) {
+            let product = products.find(prod => {
+                return prod.name === name
+            })
+
+            if(product){
+                if(type === 'DECREASE') {
+                    product.amount -= amount
+                }else if(type === 'INCREASE') {
+                    product.amount += amount
+                }
+                
+            }
+            console.log(product)
+        })
     }
 }
