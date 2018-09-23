@@ -5,7 +5,8 @@ import productService from '@/api/productService'
 
 const type = {
     requestCartItems: 'CART_REQUEST_CARTITEMS',
-    requestRemoveItem: 'CART_REQUEST_REMOVE_ITEM'
+    requestRemoveItem: 'CART_REQUEST_REMOVE_ITEM',
+    requestCheckoutCart: 'CART_REQUEST_CHECKOUT_CART'
 }
 
 const state = {
@@ -36,7 +37,19 @@ const actions = {
 
         let items = await cartService.getAll()
         commit(type.requestCartItems, items)
+    },
+
+    async requestCheckoutCart({state, commit}) {
+        console.log('Paid')
+        // TODO : Remove item in cart
+        state.cartItems.forEach(item => {
+            // await productService.deleteProduct(item)
+            cartService.removeItemCart(item)
+        });
+        // Update state
+        commit(type.requestCartItems, [])
     }
+    
 }
 
 const mutations = {

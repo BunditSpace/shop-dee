@@ -14,7 +14,16 @@ const products = [
         price: 500,
         pic:
           "https://rukminim1.flixcart.com/image/832/832/shirt/s/h/y/46-bfrybluesht02-being-fab-original-imaekjr8ymhnxznp.jpeg?q=70"
-    }
+    },
+    {
+        name: "Spaghetti",
+        category: "Food",
+        amount: 24,
+        price: 80,
+        pic:
+          "https://img.taste.com.au/O1ofwjUO/w1200-h630-cfill/taste/2016/11/spaghetti-with-meatballs-and-spicy-tomato-sauce-102298-1.jpeg",
+      }
+    
 ]
 export default {
     getAll() {

@@ -11,6 +11,14 @@ const carts = [
             price: 35,
             pic:
               "https://d3cizcpymoenau.cloudfront.net/images/32489/SFS_pad_thai-44.jpg",
+          },
+          {
+            name: "Spaghetti",
+            category: "Food",
+            amount: 1,
+            price: 80,
+            pic:
+              "https://img.taste.com.au/O1ofwjUO/w1200-h630-cfill/taste/2016/11/spaghetti-with-meatballs-and-spicy-tomato-sauce-102298-1.jpeg",
           }
         ]
       },
@@ -56,7 +64,11 @@ export default {
                 })
 
                 if(existingItem) {
-                    carts.splice(existingItem,1)
+                    cart.items.splice(existingItem,1)
+                }
+
+                if(cart.items.length === 0) {
+                    carts.splice(cart,1)
                 }
             }
             resolve()

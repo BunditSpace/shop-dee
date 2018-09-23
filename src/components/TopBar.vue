@@ -11,7 +11,7 @@
       <v-menu bottom left offset-y>
           <v-btn icon slot="activator">
             <v-badge overlap small color="red">
-              <span slot="badge" small>{{cartItems.length}}</span>
+              <span slot="badge" small>{{itemCount}}</span>
                 <v-icon dark>shopping_cart</v-icon>
             </v-badge>
           </v-btn>
@@ -46,6 +46,14 @@ export default {
     computed: {
         drawer() {
             return this.isDrawer
+        },
+        itemCount() {
+          let count = 0
+          this.cartItems.forEach(item => {
+            count += item.items.length
+          })
+
+          return count
         }
     },
     methods: {

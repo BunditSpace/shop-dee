@@ -6,7 +6,7 @@
           <v-toolbar-side-icon></v-toolbar-side-icon>
           <v-toolbar-title>Shopping Cart</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn color="success" :disabled="cartItems.length === 0">Check out</v-btn>
+          <v-btn color="success" :disabled="cartItems.length === 0" @click="checkout">Check out</v-btn>
         </v-toolbar>
         <v-list two-line>
           <template >
@@ -51,6 +51,11 @@ export default {
   data: () => ({
     
   }),
+  methods: {
+    checkout() {
+      this.$router.push('checkout')
+    }
+  },
   name: "cart"
 };
 </script>
