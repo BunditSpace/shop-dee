@@ -1,3 +1,5 @@
+
+
 const carts = [
     {
         category: "Food",
@@ -6,7 +8,7 @@ const carts = [
             name: "Padthai",
             category: "Food",
             amount: 1,
-            price: 20,
+            price: 35,
             pic:
               "https://d3cizcpymoenau.cloudfront.net/images/32489/SFS_pad_thai-44.jpg",
           }
@@ -47,7 +49,7 @@ export default {
             let cart = carts.find(c => {
                 return c.category === item.category;
             })
-            console.log(item)
+            
             if(cart) {
                 let existingItem = cart.items.find(i => {
                     return i.name === item.name

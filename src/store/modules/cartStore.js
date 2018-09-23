@@ -1,6 +1,7 @@
 
 
 import cartService from '@/api/cartService'
+import productService from '@/api/productService'
 
 const type = {
     requestCartItems: 'CART_REQUEST_CARTITEMS',
@@ -30,7 +31,11 @@ const actions = {
     async requestRemoveItem({state, commit, dispatch}, item) {
         
         await cartService.removeItemCart(item)
-        //dispatch(type.requestCartItems)
+
+        await productService.updateProductAmount(item.name, item.amount, 'INCREASE')
+
+        let items = await cartService.getAll()
+        commit(type.requestCartItems, items)
     }
 }
 

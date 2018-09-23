@@ -1,10 +1,19 @@
 const products = [
     {
-        name: 'Cat',
-        category: 'Food',
+        name: "Padthai",
+        category: "Food",
+        amount: 9,
+        price: 35,
+        pic:
+          "https://d3cizcpymoenau.cloudfront.net/images/32489/SFS_pad_thai-44.jpg",
+    },
+    {
+        name: "Men's shirt",
+        category: "Fashion",
         amount: 10,
-        price: 50,
-        pic: 'https://cdn.vuetifyjs.com/images/cards/foster.jpg'
+        price: 500,
+        pic:
+          "https://rukminim1.flixcart.com/image/832/832/shirt/s/h/y/46-bfrybluesht02-being-fab-original-imaekjr8ymhnxznp.jpeg?q=70"
     }
 ]
 export default {

@@ -3,7 +3,7 @@ const productCategories = [
         name: 'Food'
     },
     {
-        name: 'Beverage'
+        name: 'Fashion'
     }
 ]
 
