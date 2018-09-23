@@ -34,7 +34,8 @@ export default {
     }),
     methods: {
         deleteItem(item) {
-            return confirm("Are you sure you want to delete this item?")
+            this.$emit('delete-product', item)
+            
         }
     }
 }

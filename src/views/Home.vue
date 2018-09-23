@@ -66,6 +66,8 @@ export default {
     productService.getAll().then(response => {
       this.products = response
     })
+  },
+  computed: {
   }
 }
 </script>

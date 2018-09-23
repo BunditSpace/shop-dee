@@ -1,27 +1,7 @@
 <template>
   <v-app>
     <app-menu :is-drawer="drawer"></app-menu>
-    <!-- <v-toolbar
-      app
-      clipped-left
-      color="cyan lighten-1"
-    >
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Shop Dee</v-toolbar-title>
-      <v-spacer></v-spacer>
-
-      <v-menu bottom left offset-y>
-          <v-btn icon slot="activator">
-            <v-badge overlap small color="red">
-              <span slot="badge" small>3</span>
-                <v-icon dark>shopping_cart</v-icon>
-            </v-badge>
-          </v-btn>
-          <cart></cart>
-        </v-menu>
-      
-    </v-toolbar> -->
-    <top-bar v-on:onToggle="toggleBar" :is-drawer="drawer"></top-bar>
+    <top-bar v-on:onToggle="toggleBar" :is-drawer="drawer" :cart-items="cartItems"></top-bar>
     <v-content>
       <router-view/>
     </v-content>
@@ -32,13 +12,16 @@
 </template>
 
 <script>
+import {mapState, mapGetters} from 'vuex'
+
 import Menu from '@/components/Menu'
-import Cart from '@/components/Cart'
 import ToptBar from '@/components/TopBar'
+
+import cartService from '@/api/cartService'
 
 export default {
   name: 'App',
-  components: {'app-menu' : Menu, 'cart': Cart, 'top-bar' : ToptBar},
+  components: {'app-menu' : Menu, 'top-bar' : ToptBar},
   data () {
     return {
       clipped: false,
@@ -51,7 +34,11 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Vuetify.js',
+      ...mapState('cartStore', {
+        //loading : state => state.cartStore.isLoading,
+      })
+      // cartItems: []
     }
   },
   methods: {
@@ -60,6 +47,14 @@ export default {
       this.drawer = !this.drawer
       console.log(this.drawer)
     }
+  },
+  created() {
+    this.$store.dispatch('cartStore/requestCartItems')
+  },
+  computed: {
+    ...mapGetters('cartStore',{
+      cartItems : 'cartItems'
+    })
   }
 }
 </script>

@@ -21,7 +21,7 @@
                           v-model="category.name"
                           :rules="[v => !!v || 'Item is required']" required                        
                       ></v-text-field>
-                      <span class="text-red" v-if="!isValid">{{category.name + ' already exist.'}}</span>
+                      <span class="text-red" v-if="!isValid">Category already exist.</span>
                   </v-flex>
                   <v-flex xs2>
                        <v-btn color="success" class="sm" @click="addCategory" :disabled="!category.name">Add Product</v-btn>
@@ -102,6 +102,7 @@ export default {
 
         productCategoryService.addCategory(this.category).then(response => {
             this.isValid = response
+            this.category = {name: null}
         })
       },
 

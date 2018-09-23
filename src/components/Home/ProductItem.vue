@@ -31,7 +31,7 @@
                 <v-btn icon>
                     <v-icon>add</v-icon>
                 </v-btn>
-                <v-btn  color="blue darken-4" sm dark>Add To Cart</v-btn>
+                <v-btn  color="blue darken-4" sm dark @click="">Add To Cart</v-btn>
               </v-card-actions>
             </v-card>
     </div>
@@ -39,6 +39,9 @@
 
 <script>
 export default {
-    props: ['product']
+    props: ['product'],
+    methods: {
+
+    }
 }
 </script>

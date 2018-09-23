@@ -31,5 +31,21 @@ export default {
                
             }, 1000);
         })
+    },
+
+    deleteProduct(item) {
+        return new Promise(function (resolve, reject) {
+            setTimeout(() => {
+                var found = products.find(function (product) {
+                    return product.name == item.name;
+                });
+                if (found) {
+                    products.splice(found,1)
+                    resolve(true)
+                }else {
+                    resolve(false)
+                }
+            }, 1000);
+        }) 
     }
 }

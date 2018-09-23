@@ -66,7 +66,7 @@
               </v-layout>              
             </div>         
             <div>
-                <product-list :headers="headers" :products="products"></product-list>
+                <product-list :headers="headers" :products="products" @delete-product="deleteProduct"></product-list>
             </div>   
           </v-card>
         </v-flex>
@@ -169,6 +169,10 @@ export default {
         // productService.getAll().then(response => {
         //     console.log(response)
         // })
+      },
+
+      async deleteProduct(item) {
+          return confirm("Are you sure you want to delete this product?") && await productService.deleteProduct(item)
       }
   }
 }
