@@ -51,14 +51,11 @@ export default {
         })
     },
 
-    deleteProduct(item) {
+    deleteProduct(index) {
         return new Promise(function (resolve, reject) {
             setTimeout(() => {
-                var found = products.find(function (product) {
-                    return product.name == item.name;
-                });
-                if (found) {
-                    products.splice(found,1)
+                var deleted = products.splice(index,1)
+                if (deleted) {
                     resolve(true)
                 }else {
                     resolve(false)

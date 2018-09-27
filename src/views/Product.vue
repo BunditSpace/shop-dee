@@ -94,86 +94,82 @@ a {
 </style>
 
 <script>
-
-import ProductList from '@/components/Product/ProductList'
-import productService from '@/api/productService'
-import productCategoryService from '@/api/productCategoryService'
+import ProductList from "@/components/Product/ProductList";
+import productService from "@/api/productService";
+import productCategoryService from "@/api/productCategoryService";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
-    'product-list': ProductList
+    "product-list": ProductList
   },
   data: () => ({
-    product: {name:null, category: null, amount: 0, price: 0},
+    product: { name: null, category: null, amount: 0, price: 0 },
     isValid: true,
-    categories:[],
-    products:[],
+    categories: [],
     headers: [
-        {
-            text: 'Number',
-            align: 'left',
-            sortable: false,
-            width: "5%"
-        },
-        {
-            text: 'Category',
-            align: 'left',
-            sortable: false,
-            value: "category",
-            width: "25%"
-        },
-        {
-            text: 'Name',
-            align: 'left',
-            sortable: false,
-            value: "name",
-            width: "25%"
-        },
-        {
-            text: 'Price',
-            align: 'left',
-            sortable: false,
-            value: "price",
-            width: "15%"
-        },
-        {
-            text: 'Amount',
-            align: 'left',
-            sortable: false,
-            value: "amount",
-            width: "15%"
-        },
-        {
-            text: 'Action',
-            align: 'center',
-            sortable: false,
-            width: "15%"
-        }
+      {
+        text: "Number",
+        align: "left",
+        sortable: false,
+        width: "5%"
+      },
+      {
+        text: "Category",
+        align: "left",
+        sortable: false,
+        value: "category",
+        width: "25%"
+      },
+      {
+        text: "Name",
+        align: "left",
+        sortable: false,
+        value: "name",
+        width: "25%"
+      },
+      {
+        text: "Price",
+        align: "left",
+        sortable: false,
+        value: "price",
+        width: "15%"
+      },
+      {
+        text: "Amount",
+        align: "left",
+        sortable: false,
+        value: "amount",
+        width: "15%"
+      },
+      {
+        text: "Action",
+        align: "center",
+        sortable: false,
+        width: "15%"
+      }
     ]
   }),
   created() {
+    productCategoryService.getAll().then(response => {
+      this.categories = response;
+    });
 
-      productCategoryService.getAll().then(response => {
-          this.categories = response
-      })
-
-      productService.getAll().then(response => {
-          this.products = response
-      })
+    this.$store.dispatch("productStore/requestProductItems");
   },
   methods: {
-      async addProduct() {
-   
-        this.isValid = await productService.addProduct(this.product)
+    addProduct() {
+      this.$store.dispatch("productStore/addProductItems", this.product);
+    },
 
-        // productService.getAll().then(response => {
-        //     console.log(response)
-        // })
-      },
-
-      async deleteProduct(item) {
-          return confirm("Are you sure you want to delete this product?") && await productService.deleteProduct(item)
-      }
+    deleteProduct(index) {
+      this.$store.dispatch("productStore/deleteProductItems", index);
+    }
+  },
+  computed: {
+    ...mapGetters({
+      products: "productStore/products"
+    })
   }
-}
+};
 </script>

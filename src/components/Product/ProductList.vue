@@ -15,7 +15,7 @@
                             <td class="justify-center layout px-0 xs2">                               
                                 <v-icon
                                     small
-                                    @click="deleteItem(props.item)"
+                                    @click="deleteItem(props.index)"
                                 >
                                     delete
                                 </v-icon>
@@ -33,8 +33,8 @@ export default {
 
     }),
     methods: {
-        deleteItem(item) {
-            this.$emit('delete-product', item)
+        deleteItem(index) {
+            this.$emit('delete-product', index)
             
         }
     }
