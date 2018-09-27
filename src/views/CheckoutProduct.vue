@@ -55,8 +55,8 @@
 <script>
 
 import cartService from '@/api/cartService'
-
 import CheckoutItem from '@/components/CheckoutProduct/CheckoutProductItem'
+import { mapGetters } from 'vuex'
 
 // TODO : change to use store instead
 
@@ -65,31 +65,27 @@ export default {
         'checkout-prod' : CheckoutItem
     },
     data: () => ({
-        cartItems:[]
     }),
     created() {
-        cartService.getAll().then(response => {
-            this.cartItems = response
-        })
+         this.getAllCart();
+
     },
     computed: {
-        totalPrice() {
-            let sum = 0
-            for (let i = 0; i < this.cartItems.length; i++) {
-                const item = this.cartItems[i];
-                for (let j = 0; j < item.items.length; j++) {
-                    const prod = item.items[j]; 
-                    sum += prod.price * prod.amount
-                }
-                
-            }
-            return sum
-        }
+        ...mapGetters({
+            cartItems: 'cartStore/cartItems',
+            totalPrice:'cartStore/totalPrice',
+            }),
+    
     },
     methods: {
         pay() {
             this.$store.dispatch('cartStore/requestCheckoutCart')
+        },
+        getAllCart()
+        {
+            this.$store.dispatch('cartStore/requestCartItems')
         }
+
     }
 }
 </script>

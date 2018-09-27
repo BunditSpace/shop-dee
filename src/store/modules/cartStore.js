@@ -1,7 +1,7 @@
 
-
 import cartService from '@/api/cartService'
 import productService from '@/api/productService'
+
 
 const type = {
     requestCartItems: 'CART_REQUEST_CARTITEMS',
@@ -19,6 +19,18 @@ const getters = {
     cartItems(state, getters) {
         //console.log(state.cartItems)
         return state.cartItems
+    },
+    totalPrice() {
+        let sum = 0
+        for (let i = 0; i < state.cartItems.length; i++) {
+            const item = state.cartItems[i];
+            for (let j = 0; j < item.items.length; j++) {
+                const prod = item.items[j]; 
+                sum += prod.price * prod.amount
+            }
+            
+        }
+        return sum
     }
 }
 
