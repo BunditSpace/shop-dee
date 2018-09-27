@@ -37,11 +37,13 @@ export default {
     deleteCategory(item) {
         return new Promise(function (resolve, reject) {
             setTimeout(() => {
+                var index =-1
                 var found = productCategories.find(function (category) {
+                    index++
                     return category.name == item.name;
                 });
                 if (found) {
-                    productCategories.splice(found,1)
+                    productCategories.splice(index,1)
                     resolve(true)
                 }else {
                     resolve(false)

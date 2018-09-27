@@ -29,7 +29,7 @@
               </v-layout>              
             </div>         
             <div>               
-                <category-list :headers="headers" :categories="categories" @on-delete="deleteCategory"></category-list>
+                <category-list :headers="headers"></category-list>
             </div>   
           </v-card>
         </v-flex>
@@ -58,8 +58,8 @@ a {
 
 <script>
 
-import productCategoryService from '@/api/productCategoryService'
 import ProductCategoryList from '@/components/ProductCategory/ProductCategoryList'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -67,8 +67,6 @@ export default {
   },
   data: () => ({
     category: {name:null},
-    categories:[],
-    isValid: true,
     headers: [
         {
             text: 'Number',
@@ -92,23 +90,20 @@ export default {
     ]
   }),
   created() {
-      console.log('created')
-      productCategoryService.getAll().then(response => {
-          this.categories = response
-      })
+      this.$store.dispatch('productCategoryStore/requestCategories')
   },
   methods: {
       addCategory() {
-
-        productCategoryService.addCategory(this.category).then(response => {
-            this.isValid = response
-            this.category = {name: null}
-        })
+        console.log(this.category)
+        this.$store.dispatch('productCategoryStore/addCategory', this.category)
+        this.category = {name: null}
       },
-
-      async deleteCategory(item) {
-          return confirm("Are you sure you want to delete this category?") && await productCategoryService.deleteCategory(item)
-      }
+  },
+  computed:{
+    ...mapState('productCategoryStore',{
+      categories : state => state.categories,
+      isValid : state => state.isAddSuccess
+    })
   }
 }
 </script>

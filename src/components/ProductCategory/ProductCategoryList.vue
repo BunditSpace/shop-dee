@@ -8,15 +8,10 @@
                 >
                 <template slot="items" slot-scope="props">
                     <td class="text-xs-left" >{{ props.index + 1 }}</td>
-                            <td class="text-xs-left">{{ props.item.name }}</td>
-                            <td class="justify-center layout px-0 xs2">                               
-                                <v-icon
-                                    small
-                                    @click="deleteItem(props.item)"
-                                >
-                                    delete
-                                </v-icon>
-                            </td>
+                        <td class="text-xs-left">{{ props.item.name }}</td>
+                        <td class="justify-center layout px-0 xs2">                               
+                            <v-icon small @click="deleteItem(props.item)">delete</v-icon>
+                        </td>
                 </template>
                     
         </v-data-table>
@@ -24,15 +19,20 @@
 </template>
 
 <script>
-export default {
-    props: ['headers', 'categories'],
-    data: () => ({
+import { mapState } from "vuex";
 
-    }),
-    methods: {
-        deleteItem(item) {
-            this.$emit('on-delete', item)            
-        }
+export default {
+  props: ["headers"],
+  data: () => ({}),
+  methods: {
+    deleteItem(item) {
+        this.$store.dispatch('productCategoryStore/deleteCategory', item)
     }
-}
+  },
+  computed: {
+    ...mapState("productCategoryStore", {
+      categories: state => state.categories
+    })
+  }
+};
 </script>
