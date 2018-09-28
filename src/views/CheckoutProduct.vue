@@ -58,6 +58,7 @@ import cartService from '@/api/cartService'
 import CheckoutItem from '@/components/CheckoutProduct/CheckoutProductItem'
 import { mapGetters } from 'vuex'
 
+
 // TODO : change to use store instead
 
 export default {
@@ -80,6 +81,9 @@ export default {
     methods: {
         pay() {
             this.$store.dispatch('cartStore/requestCheckoutCart')
+            this.$router.push('/')
+
+
         },
         getAllCart()
         {

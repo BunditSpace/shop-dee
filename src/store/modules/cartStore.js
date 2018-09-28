@@ -37,7 +37,6 @@ const getters = {
 const actions = {
     async requestCartItems({state, commit}) {
         let items = await cartService.getAll()
-        console.log(items)
         commit(type.requestCartItems, items)
     },
 
@@ -52,14 +51,18 @@ const actions = {
     },
 
     async requestCheckoutCart({state, commit}) {
-        console.log('Paid')
+
         // TODO : Remove item in cart
-        state.cartItems.forEach(item => {
-            // await productService.deleteProduct(item)
-            cartService.removeItemCart(item)
+        await state.cartItems.forEach(cart => {
+            cart.items.forEach(item =>
+                {
+                 cartService.removeItemCart(item)
+                })
+               //cartService.checkOutItems(cart)
         });
+
         // Update state
-        commit(type.requestCartItems, [])
+       // commit(type.requestCartItems, [])
     }
     
 }

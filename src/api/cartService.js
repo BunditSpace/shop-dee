@@ -18,7 +18,7 @@ const carts = [
             amount: 1,
             price: 80,
             pic:
-              "https://img.taste.com.au/O1ofwjUO/w1200-h630-cfill/taste/2016/11/spaghetti-with-meatballs-and-spicy-tomato-sauce-102298-1.jpeg",
+             "https://img.taste.com.au/O1ofwjUO/w1200-h630-cfill/taste/2016/11/spaghetti-with-meatballs-and-spicy-tomato-sauce-102298-1.jpeg",
           }
         ]
       },
@@ -69,27 +69,35 @@ export default {
 
     removeItemCart(item) {
         return new Promise(function(resolve) {
-            let removedCategoryIndex = carts.findIndex(c => {
-                return c.category === item.category;
-            })
-
             let cart = carts.find(c => {
                 return c.category === item.category;
             })
-            
-            if(removedCategoryIndex > -1 && cart) {
-                let removedProductIndex = cart.items.findIndex(prod => prod.name === item.name)
 
-                if(removedProductIndex > -1) {
-                    cart.items.splice(removedProductIndex, 1)
+            if(cart) {
+                let existingItem = cart.items.find(i => {
+                    return i.name === item.name
+                })
+                if(existingItem) {                           
+                    var index =cart.items.indexOf(existingItem)   
+             
+                    cart.items.splice(index,1)
                 }
-
                 if(cart.items.length === 0) {
-                    carts.splice(removedCategoryIndex, 1)
+                    var index =carts.indexOf(cart);
+                    carts.splice(index,1)
                 }
             }
             resolve()
         })
+    },
+    checkOutItems(cart)
+    {
+      //  return new Promise(function(resolve){
+         //   cart.items.forEach(item =>
+         //       {
+        //            this.removeItemCart(item)
+         //       })
+       // })        
     },
 
     clearCart() {
