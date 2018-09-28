@@ -50,7 +50,8 @@ export default {
         itemCount() {
           let count = 0
           this.cartItems.forEach(item => {
-            count += item.items.length
+            if(item.items)
+              count += item.items.length
           })
 
           return count

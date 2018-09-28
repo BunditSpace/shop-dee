@@ -66,7 +66,7 @@
               </v-layout>              
             </div>         
             <div>
-                <product-list :headers="headers" :products="products" @delete-product="deleteProduct"></product-list>
+                <product-list :headers="headers"></product-list>
             </div>   
           </v-card>
         </v-flex>
@@ -160,10 +160,6 @@ export default {
   methods: {
     addProduct() {
       this.$store.dispatch("productStore/addProductItems", this.product);
-    },
-
-    deleteProduct(index) {
-      this.$store.dispatch("productStore/deleteProductItems", index);
     }
   },
   computed: {

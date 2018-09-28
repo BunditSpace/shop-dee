@@ -40,17 +40,23 @@
 
 
 export default {
-    props: ['product', 'updateProductAmount'],
+    props: ['product'],
     data: () => ({
       selectAmount:0
     }),
     methods: {
       addToCart() {
         // TODO : Push product to cart.
-        let cartItem = Object.assign({}, this.product)
+        //let cartItem = Object.assign({}, this.product)
         // Update product amount
-        this.updateProductAmount(cartItem.name, this.selectAmount, 'DECREASE')
-        this.selectAmount = 0
+        //this.updateProductAmount(cartItem.name, this.selectAmount, 'DECREASE')
+        if(this.selectAmount > 0) {
+          let product = {name: this.product.name, amount: this.selectAmount, type: 'DECREASE', category: this.product.category, pic: this.product.pic, price: this.product.price}
+          this.$store.dispatch('productStore/updateProductAmount', product)
+          this.$store.dispatch('cartStore/requestCartItems')
+          this.selectAmount = 0
+        }else
+          alert("Please select amount more than 0")
       
       },
       increaseAmount() {

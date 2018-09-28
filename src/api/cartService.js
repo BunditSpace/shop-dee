@@ -47,28 +47,45 @@ export default {
     addCart(product) {
         return new Promise(function(resolve) {
             setTimeout(() => {
-                carts.push(product)
+               
+                let cate = carts.find(prod => {
+                    return prod.category === product.category
+                })
+                if(cate){
+                    let prod = cate.items.find(pro => {
+                        return pro.name === product.name
+                    })
+                    if(prod){
+                        prod.amount += product.amount
+                    }else
+                        cate.items.push(product)
+                }else{
+                    carts.push({category: product.category, items: [ product ]})
+                }
+
             }, 1000);
         })
     },
 
     removeItemCart(item) {
         return new Promise(function(resolve) {
+            let removedCategoryIndex = carts.findIndex(c => {
+                return c.category === item.category;
+            })
+
             let cart = carts.find(c => {
                 return c.category === item.category;
             })
             
-            if(cart) {
-                let existingItem = cart.items.find(i => {
-                    return i.name === item.name
-                })
+            if(removedCategoryIndex > -1 && cart) {
+                let removedProductIndex = cart.items.findIndex(prod => prod.name === item.name)
 
-                if(existingItem) {
-                    cart.items.splice(existingItem,1)
+                if(removedProductIndex > -1) {
+                    cart.items.splice(removedProductIndex, 1)
                 }
 
                 if(cart.items.length === 0) {
-                    carts.splice(cart,1)
+                    carts.splice(removedCategoryIndex, 1)
                 }
             }
             resolve()

@@ -21,7 +21,7 @@
        <v-layout row mt-2> 
         <v-flex xs12 text-xs-center>
           <v-card tile pa-2 v-for="(item, key) in products" :key="key"> 
-            <product-item :product="item" :update-product-amount="updateProductAmount"></product-item>
+            <product-item :product="item"></product-item>
           </v-card>
           
 
@@ -50,7 +50,7 @@ a {
 </style>
 
 <script>
-
+import { mapState } from 'vuex'
 import ProductItem from '@/components/Home/ProductItem'
 import productService from '@/api/productService'
 
@@ -59,21 +59,16 @@ export default {
     'product-item': ProductItem
   },
   data: () => ({
-    products: [      
-    ]
   }),
   mounted() {
-    productService.getAll().then(response => {
-      this.products = response
-    })
+    this.$store.dispatch('productStore/requestProductItems')
   },
   computed: {
+    ...mapState('productStore', {
+        products: state => state.products
+    })
   },
   methods: {
-    async updateProductAmount(name, amount, type) {
-      
-      await productService.updateProductAmount(name, amount, type)
-    }
   }
 }
 </script>

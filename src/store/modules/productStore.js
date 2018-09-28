@@ -1,5 +1,6 @@
 import productService from '@/api/productService'
 import productCategoryService from '@/api/productCategoryService'
+import cartService from '@/api/cartService';
 
 const type = {
     requestProductItems: 'PRODUCT_REQUEST_PRODUCT'
@@ -25,7 +26,10 @@ const actions = {
     },
     async deleteProductItems({state, commit}, index) {
         await productService.deleteProduct(index)
-    }
+    },
+    async updateProductAmount({  }, product) {
+        await Promise.all([productService.updateProductAmount(product.name, product.amount, product.type), cartService.addCart(product)])
+    } 
 }
 
 const mutations = {

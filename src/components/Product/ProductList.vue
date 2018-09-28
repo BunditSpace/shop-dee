@@ -27,16 +27,23 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-    props: ['headers', 'products'],
+    props: ['headers'],
     data: () => ({
 
     }),
     methods: {
         deleteItem(index) {
-            this.$emit('delete-product', index)
-            
+            if(confirm("Are you sure you want to delete this product ?"))
+                this.$store.dispatch("productStore/deleteProductItems", index);
         }
+    },
+    computed: {
+        ...mapState('productStore', {
+            products: state => state.products
+        })
     }
 }
 </script>
