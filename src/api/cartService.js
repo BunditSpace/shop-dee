@@ -90,14 +90,12 @@ export default {
             resolve()
         })
     },
-    checkOutItems(cart)
-    {
-      //  return new Promise(function(resolve){
-         //   cart.items.forEach(item =>
-         //       {
-        //            this.removeItemCart(item)
-         //       })
-       // })        
+    checkOutItems()
+    { 
+        return new Promise(function(resolve) {
+            carts.splice(0,carts.length)
+            resolve()
+        })   
     },
 
     clearCart() {

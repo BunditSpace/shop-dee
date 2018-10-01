@@ -53,14 +53,14 @@ const actions = {
     async requestCheckoutCart({state, commit}) {
 
         // TODO : Remove item in cart
-        await state.cartItems.forEach(cart => {
-            cart.items.forEach(item =>
-                {
-                 cartService.removeItemCart(item)
-                })
+      //  await state.cartItems.forEach(cart => {
+       //     cart.items.forEach(item =>
+        //        {
+          //       cartService.removeItemCart(item)
+         //       })
                //cartService.checkOutItems(cart)
-        });
-
+      //  });
+      await cartService.checkOutItems()
         // Update state
        // commit(type.requestCartItems, [])
     }
